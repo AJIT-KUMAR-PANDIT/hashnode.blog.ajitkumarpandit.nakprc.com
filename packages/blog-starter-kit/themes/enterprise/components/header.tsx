@@ -2,6 +2,7 @@ import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { Fragment, useState } from 'react';
+import Image from 'next/image';
 
 import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
@@ -188,7 +189,7 @@ const NavItem = ({
 const ProductPopover = () => {
 	return (
 		<Popover className="relative">
-			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
+			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 ">
 				Product
 				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
 			</Popover.Button>
@@ -240,7 +241,7 @@ const ProductPopover = () => {
 const ResourcesPopover = () => {
 	return (
 		<Popover className="relative">
-			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
+			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 ">
 				Resources
 				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
 			</Popover.Button>
@@ -287,7 +288,7 @@ const ResourcesPopover = () => {
 const CompanyPopover = () => {
 	return (
 		<Popover className="relative">
-			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
+			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 ">
 				Company
 				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
 			</Popover.Button>
@@ -346,196 +347,209 @@ export const Header = () => {
 	}
 
 	return (
-		<header className="bg-primary-900 border-b px-10  text-white dark:border-neutral-800 ">
-			<div className="flex  h-20 ">
-				<div className=" col-span-2 flex w-full flex-1 flex-row items-center justify-between gap-2 lg:col-span-1">
-					<h1>
-						<Link
-							href={'/'}
-							aria-label={`${publication.title} blog home page`}
-							className="flex flex-row items-center gap-3"
+		<>
+			<header className="bg-white border-b px-10 fixed z-[99999999] w-[100vw] dark:border-neutral-800 ">
+				<div className="flex  h-20 ">
+					<div className=" col-span-2 flex w-full flex-1 flex-row items-center justify-between gap-2 lg:col-span-1">
+						<h1>
+							<Link
+								href={'/'}
+								aria-label={`${publication.title} blog home page`}
+								className="flex flex-row items-center gap-3"
+							>
+								{PUBLICATION_LOGO ? (
+									<>
+										{/* <MindsdbLogoSVG className="block w-32 shrink-0 md:w-40" alt={publication.title} />
+										<span className="text-xl font-semibold md:text-3xl"></span> */}
+										<span className="text-xl  flex justify-center items-center font-semibold md:text-3xl">
+											<Image
+												src="https://ajitkumarpandit.nakprc.com/assets/ajitkumarpandit-logo-blog.png"
+												alt={publication.title || 'AJIT KUMAR PANDIT | BLOG'}
+												width={288}
+												height={48}
+											/> <p>| Blog</p>
+										</span>
+									</>
+								) : (
+									<span className="text-xl font-semibold flex  md:text-2xl">
+
+										{publication.title || 'AJIT KUMAR PANDIT | BLOG'}
+
+									</span>
+								)}
+							</Link>
+						</h1>
+
+						{/* nav  */}
+
+						<nav
+							className=" flex w-full items-center justify-between p-6 max-lg:justify-end lg:px-8"
+							aria-label="Global"
 						>
-							{PUBLICATION_LOGO ? (
-								<>
-									<MindsdbLogoSVG className="block w-32 shrink-0 md:w-40" alt={publication.title} />
-									<span className="text-xl font-semibold text-white md:text-3xl"></span>
-								</>
-							) : (
-								<span className="text-xl font-semibold text-white md:text-4xl">
-									{publication.title}
-								</span>
-							)}
-						</Link>
-					</h1>
+							<div className="flex lg:hidden">
+								<button
+									type="button"
+									className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+									onClick={() => setMobileMenuOpen(true)}
+								>
+									<span className="sr-only">Open main menu</span>
+									<Bars3Icon className="h-6 w-6" aria-hidden="true" />
+								</button>
+							</div>
+							<Popover.Group className="hidden lg:flex lg:gap-x-7">
+								<ProductPopover />
+								<ResourcesPopover />
+								<CompanyPopover />
+							</Popover.Group>
+							<div className=" col-span-2  flex flex-row items-center justify-end gap-5 text-slate-300 max-lg:hidden  lg:col-span-3">
+								{/* <nav className="hidden lg:block">{navList}</nav> */}
+								<a href="https://github.com/mindsdb/mindsdb">
+									<img
+										height={60}
+										width={100}
+										alt="GitHub Repo stars"
+										src="https://img.shields.io/github/stars/mindsdb/mindsdb?style=social"
+									/>
+								</a>
 
-					{/* nav  */}
+								{/* <Bars3Icon className=" h-10 w-6" aria-hidden="true" /> */}
+								<a href="https://mindsdb.com/joincommunity" className="flex flex-row gap-2">
+									<SlackWhiteNavSGV className="w-6" />
+									Join our Slack
+								</a>
 
-					<nav
-						className=" flex w-full items-center justify-between p-6 max-lg:justify-end lg:px-8"
-						aria-label="Global"
-					>
-						<div className="flex lg:hidden">
-							<button
-								type="button"
-								className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-								onClick={() => setMobileMenuOpen(true)}
-							>
-								<span className="sr-only">Open main menu</span>
-								<Bars3Icon className="h-6 w-6" aria-hidden="true" />
-							</button>
-						</div>
-						<Popover.Group className="hidden lg:flex lg:gap-x-7">
-							<ProductPopover />
-							<ResourcesPopover />
-							<CompanyPopover />
-						</Popover.Group>
-						<div className=" col-span-2  flex flex-row items-center justify-end gap-5 text-slate-300 max-lg:hidden  lg:col-span-3">
-							{/* <nav className="hidden lg:block">{navList}</nav> */}
-							<a href="https://github.com/mindsdb/mindsdb">
-								<img
-									height={60}
-									width={100}
-									alt="GitHub Repo stars"
-									src="https://img.shields.io/github/stars/mindsdb/mindsdb?style=social"
+								<Button
+									href="https://cloud.mindsdb.com/login"
+									as="a"
+									type="outline"
+									label="LOG IN"
+									className="h-10 !text-sm"
 								/>
-							</a>
+								<Button
+									href="https://github.com/mindsdb/mindsdb"
+									as="a"
+									type="primary"
+									label="GET STARTED"
+									className="h-10 !text-sm"
+								/>
+							</div>
+						</nav>
+					</div>
 
-							{/* <Bars3Icon className=" h-10 w-6" aria-hidden="true" /> */}
-							<a href="https://mindsdb.com/joincommunity" className="flex flex-row gap-2">
-								<SlackWhiteNavSGV className="w-6" />
-								Join our Slack
-							</a>
-
-							<Button
-								href="https://cloud.mindsdb.com/login"
-								as="a"
-								type="outline"
-								label="LOG IN"
-								className="h-10 !text-sm"
-							/>
-							<Button
-								href="https://github.com/mindsdb/mindsdb"
-								as="a"
-								type="primary"
-								label="GET STARTED"
-								className="h-10 !text-sm"
-							/>
-						</div>
-					</nav>
-				</div>
-
-				<Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-					<div className="fixed inset-0 z-10" />
-					<Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-						<div className="flex items-center justify-between">
-							<a href="#" className="-m-1.5 p-1.5">
-								<span className="sr-only">Mindsdb</span>
-								<MindsdbLogoSVG className="h-8 w-auto" alt="mindsdb logo" />
-							</a>
-							<button
-								type="button"
-								className="-m-2.5 rounded-md p-2.5 text-gray-700"
-								onClick={() => setMobileMenuOpen(false)}
-							>
-								<span className="sr-only">Close menu</span>
-								<XMarkIcon className="h-6 w-6" aria-hidden="true" />
-							</button>
-						</div>
-						<div className="mt-6 flow-root">
-							<div className="-my-6 divide-y divide-gray-500/10">
-								<div className="space-y-2 py-6">
-									<Disclosure as="div" className="-mx-3">
-										{({ open }) => (
-											<>
-												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Product
-													<ChevronDownIcon
-														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-														aria-hidden="true"
-													/>
-												</Disclosure.Button>
-												<Disclosure.Panel className="mt-2 space-y-2">
-													{[...product1, ...product2].map((item) => (
-														<NavItem
-															key={item.name}
-															title={item.name}
-															description={item.description}
-															icon={item.Icon}
-															url={item.href}
+					<Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+						<div className="fixed inset-0 z-10" />
+						<Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+							<div className="flex items-center justify-between">
+								<a href="#" className="-m-1.5 p-1.5">
+									<span className="sr-only">Mindsdb</span>
+									<MindsdbLogoSVG className="h-8 w-auto" alt="mindsdb logo" />
+								</a>
+								<button
+									type="button"
+									className="-m-2.5 rounded-md p-2.5 text-gray-700"
+									onClick={() => setMobileMenuOpen(false)}
+								>
+									<span className="sr-only">Close menu</span>
+									<XMarkIcon className="h-6 w-6" aria-hidden="true" />
+								</button>
+							</div>
+							<div className="mt-6 flow-root">
+								<div className="-my-6 divide-y divide-gray-500/10">
+									<div className="space-y-2 py-6">
+										<Disclosure as="div" className="-mx-3">
+											{({ open }) => (
+												<>
+													<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+														Product
+														<ChevronDownIcon
+															className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+															aria-hidden="true"
 														/>
-													))}
-												</Disclosure.Panel>
-											</>
-										)}
-									</Disclosure>
-									<Disclosure as="div" className="-mx-3">
-										{({ open }) => (
-											<>
-												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Resources
-													<ChevronDownIcon
-														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-														aria-hidden="true"
-													/>
-												</Disclosure.Button>
-												<Disclosure.Panel className="mt-2 space-y-2">
-													{[...res1, ...res2].map((item) => (
-														<NavItem
-															key={item.name}
-															title={item.name}
-															description={item.description}
-															icon={item.Icon}
-															url={item.href}
+													</Disclosure.Button>
+													<Disclosure.Panel className="mt-2 space-y-2">
+														{[...product1, ...product2].map((item) => (
+															<NavItem
+																key={item.name}
+																title={item.name}
+																description={item.description}
+																icon={item.Icon}
+																url={item.href}
+															/>
+														))}
+													</Disclosure.Panel>
+												</>
+											)}
+										</Disclosure>
+										<Disclosure as="div" className="-mx-3">
+											{({ open }) => (
+												<>
+													<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+														Resources
+														<ChevronDownIcon
+															className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+															aria-hidden="true"
 														/>
-													))}
-												</Disclosure.Panel>
-											</>
-										)}
-									</Disclosure>
-									<Disclosure as="div" className="-mx-3">
-										{({ open }) => (
-											<>
-												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Company
-													<ChevronDownIcon
-														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-														aria-hidden="true"
-													/>
-												</Disclosure.Button>
-												<Disclosure.Panel className="mt-2 space-y-2">
-													{[...company1, ...company2].map((item) => (
-														<NavItem
-															key={item.name}
-															title={item.name}
-															description={item.description}
-															icon={item.Icon}
-															url={item.href}
+													</Disclosure.Button>
+													<Disclosure.Panel className="mt-2 space-y-2">
+														{[...res1, ...res2].map((item) => (
+															<NavItem
+																key={item.name}
+																title={item.name}
+																description={item.description}
+																icon={item.Icon}
+																url={item.href}
+															/>
+														))}
+													</Disclosure.Panel>
+												</>
+											)}
+										</Disclosure>
+										<Disclosure as="div" className="-mx-3">
+											{({ open }) => (
+												<>
+													<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+														Company
+														<ChevronDownIcon
+															className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+															aria-hidden="true"
 														/>
-													))}
-												</Disclosure.Panel>
-											</>
-										)}
-									</Disclosure>
-								</div>
-								<div className="py-6">
-									<a
-										href="https://cloud.mindsdb.com/login"
-										className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-									>
-										Log in
-									</a>
-									<a
-										href="https://github.com/mindsdb/mindsdb"
-										className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-									>
-										GET STARTED
-									</a>
+													</Disclosure.Button>
+													<Disclosure.Panel className="mt-2 space-y-2">
+														{[...company1, ...company2].map((item) => (
+															<NavItem
+																key={item.name}
+																title={item.name}
+																description={item.description}
+																icon={item.Icon}
+																url={item.href}
+															/>
+														))}
+													</Disclosure.Panel>
+												</>
+											)}
+										</Disclosure>
+									</div>
+									<div className="py-6">
+										<a
+											href="https://cloud.mindsdb.com/login"
+											className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+										>
+											Log in
+										</a>
+										<a
+											href="https://github.com/mindsdb/mindsdb"
+											className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+										>
+											GET STARTED
+										</a>
+									</div>
 								</div>
 							</div>
-						</div>
-					</Dialog.Panel>
-				</Dialog>
-			</div>
-		</header>
+						</Dialog.Panel>
+					</Dialog>
+				</div>
+			</header>
+			<div className='h-[111px] w-full'></div>
+		</>
 	);
 };
