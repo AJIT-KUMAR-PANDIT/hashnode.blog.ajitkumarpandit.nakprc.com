@@ -1,4 +1,5 @@
 import { Analytics } from './analytics';
+import { BottomNavigation } from './bottom-navigation';
 import { Integrations } from './integrations';
 import { Meta } from './meta';
 import { Scripts } from './scripts';
@@ -12,8 +13,11 @@ export const Layout = ({ children }: Props) => {
 		<>
 			<Meta />
 			<Scripts />
-			<div className="min-h-screen bg-white dark:bg-neutral-950">
-				<main>{children}</main>
+			<div className="min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300">
+				<main className="pb-20 lg:pb-8">{children}</main>
+				<div className="block lg:hidden">
+					<BottomNavigation />
+				</div>
 			</div>
 			<Analytics />
 			<Integrations />
